@@ -19,9 +19,7 @@ class CreateLikesTable extends Migration
             $table->integer('reply_id')->unsigned();
             $table->integer('user_id')->unsigned();
 
-            $table->foreign('reply_id')->references('id')
-                ->on('replies')
-                ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
