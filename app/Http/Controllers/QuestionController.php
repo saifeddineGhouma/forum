@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Question;
 use App\Http\Resources\QuestionResource ;
 use Illuminate\Http\Request;
-
+use Response ;
 class QuestionController extends Controller
 {
     /**
@@ -30,6 +30,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $question = Question::create($request->all());
+        return 'created'  ;
     }
 
     /**
@@ -56,7 +57,12 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        //return $request->title;
+        $question->update($request->all());
+       // $query=Question::find($question->id);
+      //  $query->title= $request->title;
+      //  $query->update();
+        return 'update'  ;
     }
 
     /**
