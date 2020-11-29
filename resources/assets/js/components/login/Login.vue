@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" md="12">
           <v-text-field
-            v-model="email"
+            v-model="emaile"
             label="E-mail"
             type="email"
             required
