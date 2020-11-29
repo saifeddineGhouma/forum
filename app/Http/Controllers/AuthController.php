@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-  use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
+use App\User ;
+use Hash ;
 
 class AuthController extends Controller
 {
        public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('JWT', ['except' => ['login','register']]);
     }
       /**
      * Get a JWT via given credentials.
@@ -19,12 +22,26 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
+      
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+    public function register (Request $request)
+    {
+        $user = new User();
+        $user->name= $request->name;
+        $user->email = $request->email;
+        $user->password=Hash::make($request->password);
+        $user->save();
+
+        return $this->login($request);
+ 
+
     }
     
     /**

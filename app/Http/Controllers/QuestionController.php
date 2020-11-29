@@ -13,6 +13,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['show']]);
+    }
     public function index()
     {
         $questions=Question::latest()->get();
